@@ -65,7 +65,10 @@ function checkGameEnd() {
     if (lose) {
         messageText.textContent = "You lose!"
         board.forEach(row => {
-            row.forEach
+            row.forEach(tile => {
+                if (tile.status === TILE_STATUSES.MARKED) markTile(tile);
+                if (tile.mine) revealTile(board, tile);
+            })
         })
     }
 }
