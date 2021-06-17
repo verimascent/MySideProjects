@@ -180,6 +180,7 @@ main {
     column-gap: 0.75rem;
     margin-bottom: 1.5rem;
     align-items: center;
+    position: relative;
 }
 
 .person img {
@@ -197,6 +198,15 @@ main {
 .person p {
     margin-bottom: 0;
 }
+
+.person .btn-remove {
+    position: absolute;
+    top: -20px;
+    right: 1px;
+    max-width: 4.5rem;
+    font-size: 1rem;
+}
+
 
 .container button {
     color: var(--clr-white);
