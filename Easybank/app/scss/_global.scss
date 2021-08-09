@@ -1,0 +1,17 @@
+html {
+    font-size: 100%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+// It is considered a best practice for resetting box-sizing to border-box
+// For further explaining, see https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.3; // line height relative to the font size
+}
