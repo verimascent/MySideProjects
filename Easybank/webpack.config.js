@@ -9,7 +9,8 @@
 // resolve用來拼接絕對路徑的方法
 const { resolve } = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { resolveCname } = require('dns');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
     // webpack 配置
     entry: './app/js/script.js',
@@ -23,21 +24,68 @@ module.exports = {
     // loader的配置
     module: {
         rules: [
+            {
+                // js語法檢查 eslint-loader eslint
+                // 注意：只檢查自己寫的源代碼，第三方庫不用檢查
+                // 設置檢查規則：
+                //  package.json中eslintConfig設置
+                //      airbnb --> eslint-config-airbnb-base eslint eslint-plugin-import
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+                options: {
+                    fix: true
+                }
+            },
             // 詳細loader配置
             {
                 test: /\.css$/,
                 use: [
                     // use數組中loader執行順序爲從右到左，從上到下，依次執行
                     // 創建style標籤，將js中的樣式資源插入，添加到head中生效
-                    'style-loader',
+                    // 'style-loader', //或者 MiniCssExtractPlugin.loader
+                    MiniCssExtractPlugin.loader,  
                     // 將css文件變成commonjs模塊加載到js中，裏面內容是樣式字符串
-                    'css-loader'
+                    'css-loader',
+
+                    /**
+                     * css兼容性處理： postcss --> postcss-loader postcss-preset-env
+                     * 
+                     * 幫postcss找到package.json中browserslist裏面的配置，通過配置加載指定的css兼容性樣式
+                     * 
+                     * "browserslist": {
+                     *      "development": [
+                     *          "last 1 chrome version"
+                     *      ],
+                     *      // 默認爲生產環境，與mode無關，需設置node環境變量： process.env.NODE_ENV = "development" (在module.exports之前)
+                     *      "production": [
+                     *          ">0.2%",
+                     *          "not dead",
+                     *          "not op_mini all"
+                     *      ]
+                     * }
+                     */
+
+                    // 使用loader的默認配置
+                    // 'postcss-loader',
+                    // 修改loader的配置
+                    
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: () => [
+                                    require('postcss-preset-env')
+                                ]
+                            }
+                    }
+                    
                 ]
             },
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
@@ -84,9 +132,14 @@ module.exports = {
         // 功能：默認創建一個空的html，自動引入打包輸出的所有資源（JS/CSS）
         // 需求：需要有結構的HTML
         new HTMLWebpackPlugin({
+            filename: 'index.html',
             template: './index.html',
             favicon: './assets/images/favicon-32x32.png'
         }),
+
+        new MiniCssExtractPlugin({
+            filename: "css/main.css"
+        })
     ],
 
     mode: 'development',
@@ -101,5 +154,8 @@ module.exports = {
         port: 3000,
         // 自動打開瀏覽器
         open: true,
-    }
+    },
+    
+    target: 'web',
+    
 }
