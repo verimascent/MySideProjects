@@ -1,0 +1,70 @@
+.header {
+
+    nav {
+        padding: math.div(17rem, 16) math.div(24rem, 16);
+    }
+
+    &__logo {
+        img {
+            width: math.div(140rem, 16);
+            height: math.div(20rem, 16);
+        }
+    }
+
+    &__menu { // Moblie Menu
+        > span {
+            display: block;
+            width: 24px;
+            height: 1px;
+            background-color: $darkBlue;
+
+            &:not(:last-child){
+                margin-bottom: 4px;
+            }
+        }
+    }
+
+    &__links {
+        a {
+            position: relative;
+            font-size: $font-sm;
+            color: $grayishBlue;
+            transition: color 300ms ease-in-out;
+
+            &:not(:last-child){
+                margin-right: 32px;
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                height: 4px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: math.div(-31rem, 16);
+                background: linear-gradient(to right, $limeGreen, $brightCyan);
+                opacity: 0;
+                transition: opacity 300ms ease-in-out ;
+            }
+
+            &:hover {
+                color: $darkBlue;
+
+                &::after {
+                   opacity: 1;
+                }
+            }
+        }
+    }
+
+    &__cta {
+        font-size: $font-xsm;
+        color: $white;
+        transition: opacity 300ms ease-in-out;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+}
