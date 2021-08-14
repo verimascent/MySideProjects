@@ -1,5 +1,29 @@
 .header {
 
+    &.open {
+        
+        .overlay {
+            display: block;
+        }
+
+        .header__menu {
+            >span:first-child{
+                // top: 50%;
+                transform: translateY($ham_ty) rotate(45deg);
+            }
+
+            >span:nth-child(2){
+                opacity: 0;
+            }
+
+            >span:last-child{
+                // transform-origin: bottom left;
+                
+                transform: translateY(-$ham_ty) rotate(-45deg);
+            }
+        }
+    }
+
     nav {
         padding: math.div(17rem, 16) math.div(24rem, 16);
     }
@@ -15,33 +39,17 @@
         > span {
             display: block;
             width: 24px;
-            height: 1px;
+            height: $h_menu;
             background-color: $darkBlue;
             transition: all 300ms ease-in-out;
             transform-origin: center center;
 
             &:not(:last-child){
-                margin-bottom: 4px;
+                margin-bottom: $mb_menu;
             }
         }
 
-        &.open {
-            
-            >span:first-child{
-                // top: 50%;
-                transform: translateY(45px) rotate(45deg);
-            }
-
-            >span:nth-child(2){
-                opacity: 0;
-            }
-
-            >span:last-child{
-                // transform-origin: bottom left;
-                
-                transform: translateY(50%) rotate(-45deg);
-            }
-        }
+        
     }
 
     &__links {
@@ -88,4 +96,14 @@
             opacity: 0.75;
         }
     }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: math.div(59.5rem, 16);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient($darkBlue, transparent);
 }

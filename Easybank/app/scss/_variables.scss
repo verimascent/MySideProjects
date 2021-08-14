@@ -12,3 +12,8 @@ $font-sm: math.div(12rem, 16); // 12px
 $font-xsm: math.div(14rem, 16);
 $font-med: math.div(18rem, 16); // 18px
 
+// Hamburger Menu
+$h_menu: 1px;
+$mb_menu: 4px;
+$ham_ty: $h_menu + $mb_menu;
+
