@@ -24,7 +24,8 @@
     }
 
     nav {
-        padding: math.div(17rem, 16) math.div(24rem, 16);
+        padding-top: math.div(17rem, 16);
+        padding-bottom: math.div(17rem, 16);
     }
 
     &__logo {
@@ -54,6 +55,12 @@
     &__menu {
         background: $white;
         padding: math.div(35rem, 16) 0;
+        margin: 1.5rem math.div(24rem, 16);
+        border-radius: 3px;
+        position: absolute;
+        width: calc(100% - 3rem);
+        // top: 1.5rem;
+
         a {
             display: block;
             color: $darkBlue;

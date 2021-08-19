@@ -28,6 +28,12 @@ a, a:visited, a:hover {
     text-decoration: none;
 }
 
+// Spacing
+.container {
+    padding-left: math.div(24rem, 16);
+    padding-right: math.div(24rem, 16);
+}
+
 // Flexbox
 .flex {
     display: flex;

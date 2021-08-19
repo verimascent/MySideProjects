@@ -10,6 +10,7 @@
 const { resolve } = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const svgToMiniDataURI = require('mini-svg-data-uri');
 
 module.exports = {
     // webpack 配置
@@ -90,15 +91,22 @@ module.exports = {
                     'sass-loader'
                 ]
             },
-            {
-                test: /\.html$/,
-                // 處理html文件中的img圖片，從而被url-loader處理
-                loader: 'html-loader',
-               
-            },
+
+            
+           
+            // {
+            //     test: /\.svg$/i,
+            //     loader: 'file-loader',
+                    
+                        
+            //             options: {esModule: false}
+                    
+                
+                
+            // },
             {
                 // 默認無法處理html中img圖片
-                test: /\.(jpe?g|png|gif)$/,
+                test: /\.(jpe?g|png|gif|svg)$/,
                 // 下載url-loader file-loader
                 loader: 'url-loader',
                 options: {
@@ -112,14 +120,28 @@ module.exports = {
                     // 必須關閉url-loader的es6模塊化，使用commonjs解析
                     esModule: false,
 
+                    encoding: true,
                     // 給圖片進行重命名
                     // [hash:10]取圖片的hash的前10位
                     // [ext]取文件原來的擴展名
                     name: '[name].[hash:10].[ext]',
                     outputPath: 'assets/images'
                 
-                }
+                },
+                type: 'javascript/auto'
             },
+            {
+                test: /\.html$/,
+                // 處理html文件中的img圖片，從而被url-loader處理
+                use: [
+                    
+                    
+                    
+                    { loader: 'html-loader' },
+                ]
+               
+            },
+            
             
 
             // 其他資源： exclude: , loader: file-loader
